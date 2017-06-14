@@ -91,6 +91,7 @@ ENV/
 .spyderproject
 .spyproject
 
+
 # Rope project settings
 .ropeproject
 
@@ -99,3 +100,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+
+# pycharm
+.idea
