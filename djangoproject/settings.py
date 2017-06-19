@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'firstapp',
+    'firstapp.apps.FirstappConfig',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +76,35 @@ WSGI_APPLICATION = 'djangoproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'I321761',
+        'USER': 'root',
+        'PASSWORD': 'Sap12345',
+        'HOST': '10.128.184.199',
+        'PORT': '3306',
+    },
+    # 'sqlite3': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
+    # 'mysql': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'mysql',
+    #     'USER': 'root',
+    #     'PASSWORD': 'Sap12345',
+    #     'HOST': '10.128.184.199',
+    #     'PORT': '3306',
+    # }
+}
+
+CACHES = {
+    'default': {
+        'ENGINE': 'django_redis.cache.RedisCache',
+        'LOCATION': '10.128.184.199:6379',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
     }
 }
 
@@ -106,7 +133,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

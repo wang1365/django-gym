@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from firstapp import views
+from . import views
 
 urlpatterns = [
     url(r'^index.html', views.index),
