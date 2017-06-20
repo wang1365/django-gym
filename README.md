@@ -24,6 +24,12 @@ For Ubuntu:
 Go to django-learning directory and execute one of below commands:
 * `uwsgi --http :8080 --wsgi-file djangoproject/wsgi.py`
 * `uwsgi --http :9090 -w djangoproject.wsgi`
+* `uwsgi -s :9090 -w djangoproject.wsgi -M --pidfile /tmp/uwsgi.pid -p 4 -d uwsgi.log`
+  * -M: Manager worker
+  * --pidfile: pid file, with it we can easily to stop uwsgi via:  
+  `uwsgi --stop /tmp/uwsgi.pid`
+  * -p: Worker process count
+  * -d: Make it run as deamon
 
 ### 2.3 Install nginx  
 Refer to [nginx offical guide](http://nginx.org/en/linux_packages.html).
