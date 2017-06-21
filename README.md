@@ -1,7 +1,8 @@
 # Django application development and deployment
 
 ## 1. MySQL support
-To connect to mysql, Django depends on mysqlmysqldb lib provided by *[mysqlclient](https://github.com/PyMySQL/mysqlclient-python)*.
+To connect to mysql, Django depends on mysqlmysqldb lib provided by *[mysqlclient](https://github.com/PyMySQL/mysqlclient-python)*.  
+Why django doesn't use **[PyMySQL](https://github.com/PyMySQL/PyMySQL)**? Refer to **[What's the difference between PyMySQL and mysqlclient-python?](https://github.com/PyMySQL/PyMySQL/issues/342)**
 
 #### 1.1 Install mysqlclient 
 * For windows, download wheel from *[Unoffical PYPI](http://www.lfd.uci.edu/~gohlke/pythonlibs)* and install it.  
