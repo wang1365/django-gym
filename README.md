@@ -102,3 +102,22 @@ Modify `/et/apt/source.list`, add below 2 lines at the end of file:
 * Start uWSGI  
   Go to django-learning directory and execute:  
   `uwsgi -s :9090 -w djangoproject.wsgi`
+  
+# 3. Database Modeling
+
+## 3.1 MySQL model tool
+You can use model tool of MySQL workbench to create the model file and import to your database.  
+Refer to [MySQL modeling](https://dev.mysql.com/doc/workbench/en/wb-data-modeling.html).
+
+## 3.2 Django database migration 
+Use `manage.py` to manage database model.
+* Before first run application, we need map django models to database table. 
+    `python manage.py migrate [app]`
+* After django model changes
+    * Create migrations  
+    `python manage.py makemigrations [app]`
+    * View one migration  
+    `python manage.py sqlmigrate [app] [000x]`
+    * Implement all or one migration  
+    `python manage.py migrate [app] [000x]`
+    
