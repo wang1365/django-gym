@@ -104,6 +104,25 @@ Modify `/et/apt/source.list`, add below 2 lines at the end of file:
   Go to django-learning directory and execute:  
   `uwsgi -s :9090 -w djangoproject.wsgi`
   
+### 2.7 Serving static files
+* Prerequisites  
+Set `STATIC_ROOT` in `setting.py`, and after application is deployed, execute:
+    `python manage.py collectstatic`  
+Then all static files that applications uses will be copied to `STATIC_ROOT`.
+
+* Use uWSGI  
+uWSGI serving static file refers to [here](http://uwsgi-docs.readthedocs.io/en/latest/StaticFiles.html?highlight=static).  
+  * Option 1: Add `--static-check` or `--check-static` option when running uWSGI, i.e.:  
+`uwsgi -s :9090 -w djangoproject.wsgi --static-check /wxc/workspace/`  
+With this option, when server received a http request `"http://hostname:9090/static/admin/favorate.icon"`,
+uWSGI will check `static/admin/favorate.icon` under `/wxc/workspace/` first.
+  
+  * Option 2: Add `--static-map` in running command:  
+  `uwsgi -s :9090 -w djangoproject.wsg --static-map /static=/wxc/workspace/static`  
+With this option, when server received a http request `"http://hostname:9090/static/favorate.icon"`,
+uWSGI will return `favorate.icon` under `/wxc/workspace/static`.
+
+
 # 3. Database Modeling
 
 ## 3.1 MySQL model tool
