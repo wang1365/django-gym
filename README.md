@@ -1,4 +1,4 @@
-# django-learning
+# Django application development and deployment
 
 ## 1. MySQL support
 To connect to mysql, Django depends on mysqlmysqldb lib provided by *[mysqlclient](https://github.com/PyMySQL/mysqlclient-python)*.
