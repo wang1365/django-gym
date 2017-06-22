@@ -3,7 +3,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 
 import requests
-
+from django.conf import settings
+from django.http import HttpRequest
+from firstapp.models import User, Country
 
 # Create your views here.
 
@@ -19,3 +21,14 @@ def suning(req):
     res = requests.get(url_suning)
     if res.ok:
         return HttpResponse(res.content)
+
+
+def register(req):
+    if settings.DEBUG:
+        user, age, country, password = req.GET['user'],  int(req.GET.get('age', -1)), int(req.GET['country']), req.GET['password']
+        print user, age, country, password
+        User(name=user, age=age, country=Country.objects.get(id=country)).save()
+
+    else:
+        raise NotImplementedError("Post register not implemented for release env")
+    return HttpResponse('Register success')

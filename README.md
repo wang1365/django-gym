@@ -12,7 +12,7 @@ Why django doesn't use **[PyMySQL](https://github.com/PyMySQL/PyMySQL)**? Refer 
 
 #### 1.2 Django setting for mysql 
 Modify project setting file `setting.py`:  
-```
+```python
 DATABASES = {
     'default': {
         # 'ENGINE': 'mysql.connector.django',
@@ -140,4 +140,15 @@ Use `manage.py` to manage database model.
     `python manage.py sqlmigrate [app] [000x]`
     * Implement all or one migration  
     `python manage.py migrate [app] [000x]`
+    * Create super user  
+    `python manage.py createsuperuser`
+    
+* Make application's model administrated in `"django.contrib.admin"`  
+Register model in app's `admin.py`, like:  
+```python
+from django.contrib import admin
+from .models import Country, User
+
+admin.site.register((Country, User))
+```
     

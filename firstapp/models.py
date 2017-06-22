@@ -26,7 +26,7 @@ class Country(models.Model):
 class User(models.Model):
     # id = models.IntegerField(auto_created=True, primary_key=True)
     name = models.CharField(max_length=128)
-    age = models.IntegerField()
+    age = models.IntegerField(null=True)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     description = models.CharField(max_length=512, null=True)
 
