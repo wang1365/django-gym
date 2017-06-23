@@ -152,3 +152,47 @@ from .models import Country, User
 admin.site.register((Country, User))
 ```
     
+# 4. Redis support
+* Install *`django-redis-cache`*  
+`pip install django-redis-cache`
+
+* Django setting  
+Modify `settings.py`:  
+```python
+CACHES: {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': [
+            '10.128.184.199:6379',
+        ],
+        'OPTIONS': {
+            'DB': 1,
+            'PASSWORD': 'yadayada',
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            },
+            'MAX_CONNECTIONS': 1000,
+            'PICKLE_VERSION': -1,
+        },
+    }
+}
+```
+
+* Read & Write to Redis cache
+```python
+from django.core.cache import cache
+from .models import User
+
+def get_user(req):
+    id = req.GET.get('id')
+    key = 'myapp.user.%d'%id
+    user = cache.get(key)
+    if not user:
+        user = User.objects.get(id=id)
+        cache.set(key, user)
+    
+    return HttpResponse(user)
+```
