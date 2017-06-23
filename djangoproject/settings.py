@@ -98,12 +98,24 @@ DATABASES = {
     # }
 }
 
+# Redis configuration # http://django-redis-cache.readthedocs.io/en/latest/
 CACHES = {
     'default': {
-        'ENGINE': 'django_redis.cache.RedisCache',
-        'LOCATION': '10.128.184.199:6379',
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': [
+            '10.128.184.199:6379',
+        ],
         'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            'DB':1,
+            # 'PASSWORD':'',
+            # 'PARSER_CLASS':'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            },
+            'MAX_CONNECTIONS': 1000,
+            'PICKLE_VERSION': -1,
         }
     }
 }
