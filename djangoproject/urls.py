@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import include, url
 
+# from firstapp.serializers import router
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    # url(r'^api^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^firstapp/', include('firstapp.urls'))
 ]

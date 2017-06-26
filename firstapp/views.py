@@ -38,7 +38,7 @@ def register(req):
     return HttpResponse('Register success')
 
 
-# Sample: https://127.0.0.1:8000/firstapp/register?userid=1
+# Sample: https://127.0.0.1:8000/firstapp/user?userid=1
 def get_user(req):
     user_id = int(req.GET.get('userid'))
     key = 'firstapp.user.%d' % user_id
@@ -48,4 +48,7 @@ def get_user(req):
         user = User.objects.get(id=user_id)
         print 'user:', user
         cache.set(key, user)
-    return HttpResponse(user)
+
+    import json
+
+    return HttpResponse(json.dumps(user))
