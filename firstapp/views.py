@@ -1,12 +1,12 @@
 from django.http import HttpResponseNotAllowed
-from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
-
-import requests
+from django.http import HttpResponse, HttpRequest, JsonResponse
 from django.core.cache import cache
 from django.conf import settings
 from django.http import HttpRequest
-from firstapp.models import User, Country
+import requests
+
+from .models import User, Country
+from .serializers import UserSerializer
 
 
 # Create your views here.
@@ -38,7 +38,7 @@ def register(req):
     return HttpResponse('Register success')
 
 
-# Sample: https://127.0.0.1:8000/firstapp/user?userid=1
+# Sample: http://127.0.0.1:8000/firstapp/user?userid=1
 def get_user(req):
     user_id = int(req.GET.get('userid'))
     key = 'firstapp.user.%d' % user_id
@@ -49,6 +49,4 @@ def get_user(req):
         print 'user:', user
         cache.set(key, user)
 
-    import json
-
-    return HttpResponse(json.dumps(user))
+    return JsonResponse(UserSerializer(user).data)
