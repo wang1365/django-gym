@@ -123,6 +123,22 @@ With this option, when server received a http request `"http://hostname:9090/sta
 uWSGI will return `favorate.icon` under `/wxc/workspace/static`.
 
 
+### 2.8 Using `virtualenv`
+* Install `virutualenv`  
+`pip install virutalenv`
+
+* Deploy application  
+  * Create virtual python environment  
+  `virualenv .env` -- ".env" folder is created, which contains a isolated python.
+  * Activate virtual environment  
+  `source .env/bin/activate`  
+  (If you want to quit the virtual env, execute `deactivate`)
+  * Install dependency libraries  
+  `pip install -r django-learning/requirements.txt`  
+  * Start uwsgi  
+  `uwsgi django-learning/uwsgi.ini`
+
+
 # 3. Database Modeling
 
 ## 3.1 MySQL model tool
