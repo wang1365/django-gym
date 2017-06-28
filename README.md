@@ -133,8 +133,11 @@ uWSGI will return `favorate.icon` under `/wxc/workspace/static`.
   * Activate virtual environment  
   `source .env/bin/activate`  
   (If you want to quit the virtual env, execute `deactivate`)
-  * Install dependency libraries  
+  * Install dependency libraries   
+  `cd django-learning`  
   `pip install -r django-learning/requirements.txt`  
+  * Collect static files  
+  `python manage.py collectstatic`
   * Start uwsgi  
   `uwsgi django-learning/uwsgi.ini`
 
