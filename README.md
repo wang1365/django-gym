@@ -135,11 +135,11 @@ uWSGI will return `favorate.icon` under `/wxc/workspace/static`.
   (If you want to quit the virtual env, execute `deactivate`)
   * Install dependency libraries   
   `cd django-learning`  
-  `pip install -r django-learning/requirements.txt`  
+  `pip install -r requirements.txt`  
   * Collect static files  
   `python manage.py collectstatic`
   * Start uwsgi  
-  `uwsgi django-learning/uwsgi.ini`
+  `uwsgi uwsgi.ini`
 
 
 # 3. Database Modeling
@@ -215,3 +215,59 @@ def get_user(req):
     
     return HttpResponse(user)
 ```
+
+# 5. Docker support
+### 5.1 Install docker CE(Communication Edition) in Ubuntu
+Refer to *[Docker for Ubuntu](https://www.docker.com/docker-ubuntu)*.  
+Here we use Ubuntu Xenial 16.04 (LTS).
+
+* If you have old version and you want to remove it  
+ `$ sudo apt-get remove docker docker-engine docker.io`
+
+* Setup the repository
+
+  * Update `apt` package index: `$ sudo apt-get update`
+  * Allow `apt` to use a repository over HTTPS:
+  ```
+  $ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+  ```
+  * Add docker official GPG key:  
+  `$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
+  
+  * Setup the `stable` repository  
+  ```
+  $ sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+  ```
+* Install Docker CE
+  * Update `apt` package index
+  `$ sudo apt-get update`
+  * Install the latest version of Docker CE  
+  `$ sudo apt-get install docker-ce` OR  
+  `$ sudo apt-get install docker-ce=<VERSION>`
+  * Verify installation by running `hello-world` image  
+  `$ sudo docker run hello-world`
+  
+ * Configure Docker to start on boot  
+ `$ sudo systemctl enbale docker`
+ * Start docker daemon  
+ `$ sudo systemctl start docker` OR  
+ `$ sudo service docker start`
+ * Set HTTP/HTTPS proxy
+   * `$ mkdir -p /etc/systemd/system/docker.service.d`
+   * Create file `/etc/systemd/system/docker.service.d/http-proxy.conf` and add:
+   ```
+   [Service]
+    Environment="HTTP_PROXY=http://proxy.example.com:80/" "HTTPS_PROXY=https://proxy.example.com:443/"
+   ```
+   * Flush changes and restart docker
+   `$ sudo systemctl daemon-reload `  
+   `$ sudo systemctl restart docker `
+   
+### 5.2 Build django application to docker image
