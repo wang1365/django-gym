@@ -271,3 +271,4 @@ Here we use Ubuntu Xenial 16.04 (LTS).
    `$ sudo systemctl restart docker `
    
 ### 5.2 Build django application to docker image
+    `$ docker build -t mydjango:0.1 . `

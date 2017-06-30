@@ -1,8 +1,7 @@
-from django.http import HttpResponseNotAllowed
-from django.http import HttpResponse, HttpRequest, JsonResponse
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
 from django.core.cache import cache
 from django.conf import settings
-from django.http import HttpRequest
+from django.contrib.auth.decorators import login_required
 import requests
 
 from .models import User, Country
@@ -11,6 +10,7 @@ from .serializers import UserSerializer
 
 # Create your views here.
 
+# @login_required
 def index(req):
     return HttpResponse("<h1>This is firstapp of django<h1>");
 
